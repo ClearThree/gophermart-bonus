@@ -1,0 +1,19 @@
+services:
+  gophermart-bonus-postgres:
+    container_name: gophermart-bonus-postgres
+    image: postgres:15
+    environment:
+      POSTGRES_USER: "clearthree"
+      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_DB: "gophermart-bonus"
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready --username=${PG_USER:-clearthree} --dbname=${PG_DB:-gophermart-bonus}",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    ports:
+      - "5432:5432"
